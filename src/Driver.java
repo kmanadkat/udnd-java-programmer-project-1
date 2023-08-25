@@ -6,6 +6,7 @@ import model.ERoomType;
 import model.Reservation;
 import model.Room;
 import service.CustomerService;
+import service.ReservationService;
 
 public class Driver {
   public static void main(String[] args) {
@@ -38,5 +39,28 @@ public class Driver {
     // System.out.println(customerService.getCustomer("jack@test.com"));
     // System.out.println(customerService.getCustomer("jack@abc.com"));
     // System.out.println(customerService.getAllCustomers());
+
+    // ReservationService
+    ReservationService reservationService = ReservationService.getInstance();
+    Room room2 = new Room("102", 45, ERoomType.SINGLE);
+    Room room3 = new Room("103", 102, ERoomType.DOUBLE);
+    reservationService.addRoom(room1);
+    reservationService.addRoom(room2);
+    reservationService.addRoom(room3);
+
+    System.out.println(reservationService.getARoom("101"));
+    System.out.println(reservationService.getARoom("102"));
+    System.out.println(reservationService.getARoom("103"));
+
+    System.out.println("::::::After Adding All Rooms::::::\n");
+    reservationService.reserveARoom(customer1, room1, checkInDate, checkOutDate);
+    reservationService.reserveARoom(customer1, room2, checkInDate, checkOutDate);
+    reservationService.printAllReservation();
+    
+    System.out.println("::::::After Reserving Two Rooms::::::\n");
+    reservationService.findRooms(checkInDate, checkOutDate);
+
+    reservationService.reserveARoom(customer1, room3, checkInDate, checkOutDate);
+    reservationService.findRooms(checkInDate, checkOutDate);
   }
 }

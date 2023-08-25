@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
-  private Customer customer;
-  private IRoom room;
-  private Date checkInDate;
-  private Date checkOutDate;
+  private final Customer customer;
+  private final IRoom room;
+  private final Date checkInDate;
+  private final Date checkOutDate;
 
   public Reservation(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
     this.customer = customer;
@@ -17,7 +17,7 @@ public class Reservation {
   }
 
   @Override
-  public String toString() {
+  public final String toString() {
     String roomType = "Double";
     if(this.room.gERoomType() == ERoomType.SINGLE) {
       roomType = "Single";
@@ -30,5 +30,19 @@ public class Reservation {
            "\nPrice: $" + this.room.getRoomPrice() + " price per night" + 
            "\nCheckin Date: " + checkinString + 
            "\nCheckout Date: " + checkoutString;
+  }
+
+  // Getters
+  public Customer getCustomer() {
+    return customer;
+  }
+  public IRoom getRoom() {
+    return room;
+  }
+  public Date getCheckInDate() {
+    return checkInDate;
+  }
+  public Date getCheckOutDate() {
+    return checkOutDate;
   }
 }

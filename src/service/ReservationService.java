@@ -186,4 +186,8 @@ public class ReservationService {
     }
     return availableRooms;
   }
+
+  public Collection<IRoom> getRooms() {
+    return rooms;
+  }
 }

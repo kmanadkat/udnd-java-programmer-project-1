@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
@@ -21,11 +22,13 @@ public class Reservation {
     if(this.room.gERoomType() == ERoomType.SINGLE) {
       roomType = "Single";
     }
+    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+    String checkinString = sdf.format(this.checkInDate);
+    String checkoutString = sdf.format(this.checkOutDate);
     return this.customer.getFirstName() + " " + this.customer.getLastName() + 
            "\nRoom: " + this.room.getRoomNumber() + " - " + roomType + " bed" + 
            "\nPrice: $" + this.room.getRoomPrice() + " price per night" + 
-           "\nCheckin Date: " + checkInDate + 
-           "\nCheckout Date: " + checkOutDate;
+           "\nCheckin Date: " + checkinString + 
+           "\nCheckout Date: " + checkoutString;
   }
-  
 }

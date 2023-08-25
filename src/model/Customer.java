@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Customer {
@@ -37,5 +38,18 @@ public class Customer {
   @Override
   public String toString() {
     return "First Name: " + this.firstName + "Last Name: " + this.lastName + " Email: " + this.email;
+  }
+
+  @Override
+  public boolean equals(Object customer) {
+    if (this == customer) return true;
+    if (!(customer instanceof Customer)) return false;
+    Customer cm = (Customer) customer;
+    return firstName.equals(cm.firstName) && lastName.equals(cm.lastName) && email.equals(cm.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(firstName, lastName, email);
   }
 }

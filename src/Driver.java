@@ -5,12 +5,13 @@ import model.Customer;
 import model.ERoomType;
 import model.Reservation;
 import model.Room;
+import service.CustomerService;
 
 public class Driver {
   public static void main(String[] args) {
     // Customer
     Customer customer1 = new Customer("Bob", "Nice", "bob.nice@test.com");
-    System.out.println(customer1.toString());
+    // System.out.println(customer1.toString());
 
     // Test Invalid Customer Email
     // Customer customer2 = new Customer("Bob", "Nice", "bob.nice@test");
@@ -18,7 +19,7 @@ public class Driver {
 
     // Room
     Room room1 = new Room("101", 95.0, ERoomType.SINGLE);
-    System.out.println(room1.toString());
+    // System.out.println(room1.toString());
 
     // Reservation
     Calendar calendar = Calendar.getInstance();
@@ -27,6 +28,15 @@ public class Driver {
     Date checkInDate = new Date();
     Date checkOutDate = calendar.getTime();
     Reservation reservation = new Reservation(customer1, room1, checkInDate, checkOutDate);
-    System.out.println(reservation.toString());
+    // System.out.println(reservation.toString());
+
+    // CustomerService
+    CustomerService customerService = CustomerService.getInstance();
+    customerService.addCustomer("jack@test.com", "Jack", "Jill");
+    customerService.addCustomer("johny@test.com", "Jhony", "James");
+    customerService.addCustomer("johny@test.com", "Jhony", "James");
+    // System.out.println(customerService.getCustomer("jack@test.com"));
+    // System.out.println(customerService.getCustomer("jack@abc.com"));
+    // System.out.println(customerService.getAllCustomers());
   }
 }

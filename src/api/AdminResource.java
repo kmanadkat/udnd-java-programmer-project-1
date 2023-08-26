@@ -32,7 +32,6 @@ public class AdminResource {
         return customer;
       }
     }
-    System.out.println("Customer Not Found");
     return null;
   }
 

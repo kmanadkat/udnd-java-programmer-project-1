@@ -1,8 +1,6 @@
 package service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -47,7 +45,7 @@ public class ReservationService {
    */
   public IRoom getARoom(String roomNumber){
      for(IRoom existingRoom: rooms) {
-        if(existingRoom.getRoomNumber() == roomNumber) {
+        if(existingRoom.getRoomNumber().equals(roomNumber)) {
           return existingRoom;
         }
      }
@@ -66,10 +64,9 @@ public class ReservationService {
     // Room available for booking - Book, Print & Return
     Collection<IRoom> availableRooms = this.findRooms(checkInDate, checkOutDate);
     for(IRoom availableRoom: availableRooms) {
-      if(availableRoom.getRoomNumber() == room.getRoomNumber()) {
+      if(availableRoom.getRoomNumber().equals(room.getRoomNumber())) {
         Reservation newReservation = new Reservation(customer, room, checkInDate, checkOutDate);
         reservations.add(newReservation);
-        System.out.println(newReservation.toString());
         return newReservation;
       }
     }
@@ -88,23 +85,6 @@ public class ReservationService {
     if(availableRooms.size() > 0) {
       return availableRooms;
     }
-    System.out.println("No Rooms Available In Date Range\n");
-
-    // Room not available -> Increment Dates by 7 & Show Recommended Rooms
-    Date incrementedCheckIn = this.incrementDate(checkInDate, 7);
-    Date incrementedCheckOut = this.incrementDate(checkOutDate, 7);
-    availableRooms = this.findAvailableRooms(incrementedCheckIn, incrementedCheckOut);
-    if(availableRooms.size() > 0){
-      SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
-      String checkinString = sdf.format(incrementedCheckIn);
-      String checkoutString = sdf.format(incrementedCheckOut);
-
-      System.out.println("Recommended Rooms available between " + checkinString + " & " + checkoutString + " :");
-      for(IRoom recommendedRoom: availableRooms) {
-        System.out.println(recommendedRoom.toString());
-      }
-    }
-    
     return null;
   }
 
@@ -140,24 +120,11 @@ public class ReservationService {
     if(reservations.size() > 0){
       System.out.println("All Reservations:");
       for (Reservation reservation : reservations) {
-        System.out.println(reservation.toString());
+        System.out.println(reservation.toString() + "\n");
       }
     } else {
       System.out.println("No reservations found");
     }
-  }
-
-  /**
-   * Utility Function to Increment Date By Number of Days
-   * @param currentDate
-   * @param days
-   * @return Date
-   */
-  private Date incrementDate(Date currentDate, int days) {
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(currentDate);
-    calendar.add(Calendar.DAY_OF_YEAR, 7);
-    return calendar.getTime();
   }
   
   /**

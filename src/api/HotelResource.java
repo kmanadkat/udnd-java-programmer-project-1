@@ -34,7 +34,6 @@ public class HotelResource {
         return customer;
       }
     }
-    System.out.println("Customer Not Found");
     return null;
   }
 
@@ -68,7 +67,7 @@ public class HotelResource {
   public Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date CheckOutDate){
     Customer customer = this.getCustomer(customerEmail);
     if(customer != null) {
-      return reservationService.reserveARoom(null, room, checkInDate, CheckOutDate);
+      return reservationService.reserveARoom(customer, room, checkInDate, CheckOutDate);
     }
     return null;
   }

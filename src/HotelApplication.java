@@ -13,6 +13,7 @@ public class HotelApplication {
         int option = s.nextInt();
         showMenu = MainMenu.initialize(s, option);
       } catch (Exception e) {
+        System.out.println(e.getLocalizedMessage());
         System.out.println("Invalid input, please try again");
         s.nextLine(); // Consume the leftover input
       }

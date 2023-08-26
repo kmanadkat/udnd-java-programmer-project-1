@@ -25,16 +25,14 @@ public class CustomerService {
    * @param lastName
    */
   public void addCustomer(String email, String firstName, String lastName) {
-    try {
-      // Check For Unique Email id
-      if(customers.get(email) != null) {
-        throw new IllegalArgumentException("Customer with email " + email + " already exists");
-      }
-      Customer newCustomer = new Customer(firstName, lastName, email);
-      customers.put(email, newCustomer);
-    } catch (IllegalArgumentException ex) {
-      System.out.println(ex.getLocalizedMessage());
+    // Check For Unique Email id
+    if(customers.get(email) != null) {
+      throw new IllegalArgumentException("Customer with email " + email + " already exists");
     }
+
+    Customer newCustomer = new Customer(firstName, lastName, email);
+    customers.put(email, newCustomer);
+    System.out.println(newCustomer.toString());
   }
 
 

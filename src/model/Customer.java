@@ -8,21 +8,17 @@ public class Customer {
   private String lastName;
   private String email;
 
-  public Customer(String firstName, String lastName, String email) {
-    try {
-      // Validate Email
-      String emailRegex = "^(.+)@(.+).com$";
-      Pattern pattern = Pattern.compile(emailRegex);
-      if(!pattern.matcher(email).matches()) {
-        throw new IllegalArgumentException("IllegalArgumentException: Invalid Email Id");
-      }
-
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.email = email;
-    } catch (IllegalArgumentException ex) {
-      System.out.println(ex.getLocalizedMessage());
+  public Customer(String firstName, String lastName, String email) { 
+    // Validate Email
+    String emailRegex = "^(.+)@(.+).com$";
+    Pattern pattern = Pattern.compile(emailRegex);
+    if(!pattern.matcher(email).matches()) {
+      throw new IllegalArgumentException("IllegalArgumentException: Invalid Email Id");
     }
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
   }
 
   public String getFirstName() {
@@ -37,7 +33,7 @@ public class Customer {
 
   @Override
   public String toString() {
-    return "First Name: " + this.firstName + "Last Name: " + this.lastName + " Email: " + this.email;
+    return "First Name: " + this.firstName + " Last Name: " + this.lastName + " Email: " + this.email;
   }
 
   @Override

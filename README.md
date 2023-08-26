@@ -1,18 +1,33 @@
-## Getting Started
+## Udacity Java Programmer - Project 1 - Hotel Reservation Application
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This project is about designing and implementing a Java hotel reservation application. The hotel reservation application will allow customers to find and book a hotel room based on room availability. This project demonstrates abilities to design classes using OOP, organize and process data with collections, and use common Java types.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+### Main Components of the App
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+The major components of the Hotel Reservation Application will consist of the following:
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+1. _CLI for the User Interface_ - Command Line Interface will be used so the user can enter commands to search for available rooms, book rooms, and so on.
+2. _Java code_ - The second main component is the Java code itself—this is where business logic for the app resides.
+3. _Java collections_ - For in-memory storage of the data needed for the app, such as the users, rooms, availability, and so on.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+![](./media/hotelreservation02.png)
+Image Source: Udacity
 
-## Dependency Management
+---
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### Application Architecture
+
+The app is separated into the following layers:
+
+1. **User interface (UI)** - A main menu for the users who want to book a room, and an admin menu for administrative functions.
+
+2. **Resources** - It will act as Application Programming Interface (API) to UI.
+
+3. **Services** - Communicates with resources, and each other, to build the business logic necessary to provide feedback to UI.
+
+4. **Data models** - Used to represent the domain used within the system (e.g., rooms, reservations, and customers).
+
+![](./media/hotelreservation01.png)
+Image Source: Udacity

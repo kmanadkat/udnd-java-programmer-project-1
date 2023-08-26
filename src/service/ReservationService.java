@@ -29,17 +29,15 @@ public class ReservationService {
    * @param room
    */
   public void addRoom(IRoom room) {
-    try {
-      // Validate if room id is unique
-      for(IRoom existingRoom: rooms) {
-        if(existingRoom.getRoomNumber() == room.getRoomNumber()) {
-          throw new IllegalArgumentException("Room already exists with number " + room.getRoomNumber());
-        }
+    // Validate if room id is unique
+    for(IRoom existingRoom: rooms) {
+      String existingRoomNumber = existingRoom.getRoomNumber();
+      String newRoomNumber = room.getRoomNumber();
+      if(existingRoomNumber.equals(newRoomNumber)) {
+        throw new IllegalArgumentException("Room already exists with number " + room.getRoomNumber());
       }
-      rooms.add(room);
-    } catch (IllegalArgumentException ex) {
-      System.out.println(ex.getLocalizedMessage());
     }
+    rooms.add(room);
   }
 
   /**
@@ -144,6 +142,8 @@ public class ReservationService {
       for (Reservation reservation : reservations) {
         System.out.println(reservation.toString());
       }
+    } else {
+      System.out.println("No reservations found");
     }
   }
 

@@ -1,9 +1,13 @@
 package ui;
 
+import java.util.Collection;
 import java.util.Scanner;
 
+import api.AdminResource;
 import model.Customer;
-import service.CustomerService;
+import model.ERoomType;
+import model.IRoom;
+import model.Room;
 
 public class AdminMenu {
   public static void showMenuOptions() {
@@ -26,15 +30,15 @@ public class AdminMenu {
         break;
     
       case 2:
-        // See all rooms
+        seeAllRooms();
         break;
     
       case 3:
-        // See all reservations
+        seeAllReservations();
         break;
     
       case 4:
-        // Add new room
+        addNewRoom(s);
         break;
       
       case 5:
@@ -49,10 +53,97 @@ public class AdminMenu {
     return showAdminMenu;
   }
 
+  /**
+   * Print All Customers Account
+   */
   private static void seeAllCustomers() {
-    CustomerService customerService = CustomerService.getInstance();
-      for (Customer customer : customerService.getAllCustomers()) {
-        System.out.println(customer.toString()); 
+    AdminResource adminResource = AdminResource.getInstance();
+    Collection<Customer> customers = adminResource.getAllCustomers();
+    if(customers.size() == 0) {
+      System.out.println("No customer accounts found");
+      return;
+    }
+
+    for (Customer customer: customers) {
+      System.out.println(customer.toString()); 
+    }
+  }
+
+  /**
+   * See All Rooms
+   */
+  private static void seeAllRooms() {
+    AdminResource adminResource = AdminResource.getInstance();
+    Collection<IRoom> rooms = adminResource.getAllRooms();
+    if(rooms.size() == 0) {
+      System.out.println("No rooms found");
+      return;
+    }
+
+    for (IRoom room: rooms) {
+      System.out.println(room.toString()); 
+    }
+  }
+
+  /**
+   * See All Reservations
+   */
+  private static void seeAllReservations() {
+    AdminResource adminResource = AdminResource.getInstance();
+    adminResource.displayAllReservations();
+  }
+
+  /**
+   * Add New Room
+   * @param s Scanner
+   */
+  private static void addNewRoom(Scanner s) {
+    System.out.println("Enter room number");
+    String roomNumber = s.next();
+
+    double price = 0.0;
+    boolean isValidPrice = false;
+    while(!isValidPrice){
+      try {
+        System.out.println("Enter price per night");
+        price = s.nextDouble();
+        isValidPrice = true;
+      } catch (Exception e) {
+        System.out.println("Invalid price entered, please try again");
+        s.nextLine(); // Consume the leftover input
       }
+    }
+
+    ERoomType roomType = null;
+    int roomTypeOption = -1;
+    boolean isRoomTypeValid = false;
+    while(!isRoomTypeValid) {
+      try {
+        System.out.println("Enter room type: 1 for single bed, 2 for double bed");
+        roomTypeOption = s.nextInt();      
+        if(roomTypeOption == 1){
+          roomType = ERoomType.SINGLE;
+          isRoomTypeValid = true;
+        } else if(roomTypeOption == 2){
+          roomType = ERoomType.DOUBLE;
+          isRoomTypeValid = true;
+        } else{
+          System.out.println("Invalid input, please try again");
+        }
+      } catch (Exception e) {
+        System.out.println("Invalid input, please try again");
+        s.nextLine(); // Consume the leftover input
+      }
+    }
+
+    AdminResource adminResource = AdminResource.getInstance();
+    try {
+      IRoom room = new Room(roomNumber, price, roomType);
+      adminResource.addRoom(room);
+      System.out.println(room.toString());
+    } catch (Exception e) {
+      System.out.println(e.getLocalizedMessage()+ ", please try again");
+      addNewRoom(s);
+    }
   }
 }

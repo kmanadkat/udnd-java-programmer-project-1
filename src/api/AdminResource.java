@@ -1,7 +1,6 @@
 package api;
 
 import java.util.Collection;
-import java.util.List;
 
 import model.Customer;
 import model.IRoom;
@@ -41,10 +40,8 @@ public class AdminResource {
    * Register Rooms
    * @param rooms
    */
-  public void addRoom(List<IRoom> rooms){
-    for (IRoom room : rooms) {
-      reservationService.addRoom(room);
-    }
+  public void addRoom(IRoom room){
+    reservationService.addRoom(room);
   }
 
   /**

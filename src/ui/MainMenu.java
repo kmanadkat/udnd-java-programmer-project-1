@@ -146,11 +146,11 @@ public class MainMenu {
 
     // Ask for Room Number
     boolean isRoomNumberValid = false;
-    String roomNumber = "";
+    int roomNumber = 0;
     while(!isRoomNumberValid) {
       try {
         System.out.println("What room number would you like to reserve?");
-        roomNumber = s.next();
+        roomNumber = s.nextInt();
         IRoom room = HotelResource.getInstance().getRoom(roomNumber);
         if(room != null) {
           Reservation reservation = HotelResource.getInstance().bookARoom(emailId, room, checkInDate, checkOutDate);
@@ -163,10 +163,11 @@ public class MainMenu {
             System.out.println(reservation.toString());
             return;
           }
+        } else {
+          System.out.println("Room number invalid, please try again");
         }
       } catch (Exception e) {
-        System.out.println(e.getLocalizedMessage());
-        System.out.println("Please try again");
+        System.out.println("Invalid input, Please try again");
         s.nextLine();
       }
     }
@@ -233,6 +234,7 @@ public class MainMenu {
         emailId = s.next();
         Customer customer = resource.getCustomer(emailId);
         if(customer == null){
+          System.out.println("Account with email entered is not found.");
           return;
         }
         Collection<Reservation> reservations = resource.getCustomersReservations(emailId);

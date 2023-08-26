@@ -29,9 +29,9 @@ public class ReservationService {
   public void addRoom(IRoom room) {
     // Validate if room id is unique
     for(IRoom existingRoom: rooms) {
-      String existingRoomNumber = existingRoom.getRoomNumber();
-      String newRoomNumber = room.getRoomNumber();
-      if(existingRoomNumber.equals(newRoomNumber)) {
+      int existingRoomNumber = existingRoom.getRoomNumber();
+      int newRoomNumber = room.getRoomNumber();
+      if(existingRoomNumber == newRoomNumber) {
         throw new IllegalArgumentException("Room already exists with number " + room.getRoomNumber());
       }
     }
@@ -43,9 +43,9 @@ public class ReservationService {
    * @param roomNumber
    * @return IRoom
    */
-  public IRoom getARoom(String roomNumber){
+  public IRoom getARoom(int roomNumber){
      for(IRoom existingRoom: rooms) {
-        if(existingRoom.getRoomNumber().equals(roomNumber)) {
+        if(existingRoom.getRoomNumber() == roomNumber) {
           return existingRoom;
         }
      }
@@ -64,7 +64,7 @@ public class ReservationService {
     // Room available for booking - Book, Print & Return
     Collection<IRoom> availableRooms = this.findRooms(checkInDate, checkOutDate);
     for(IRoom availableRoom: availableRooms) {
-      if(availableRoom.getRoomNumber().equals(room.getRoomNumber())) {
+      if(availableRoom.getRoomNumber() == room.getRoomNumber()) {
         Reservation newReservation = new Reservation(customer, room, checkInDate, checkOutDate);
         reservations.add(newReservation);
         return newReservation;
@@ -136,7 +136,7 @@ public class ReservationService {
   private Collection<IRoom> findAvailableRooms(Date checkInDate, Date checkOutDate) {
     Collection<IRoom> availableRooms = new ArrayList<IRoom>();
     for(IRoom rm: this.rooms) {
-      String roomNumber = rm.getRoomNumber();
+      int roomNumber = rm.getRoomNumber();
       boolean roomAvailable = true;
       // Check All Existing Reservations
       for(Reservation rs: reservations) {

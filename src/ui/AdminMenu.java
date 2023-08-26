@@ -98,8 +98,18 @@ public class AdminMenu {
    * @param s Scanner
    */
   private static void addNewRoom(Scanner s) {
-    System.out.println("Enter room number");
-    String roomNumber = s.next();
+    boolean isRoomNumberValid = false;
+    int roomNumber = 0;
+    while(!isRoomNumberValid) {
+      try {
+        System.out.println("Enter room number");
+        roomNumber = s.nextInt();
+        isRoomNumberValid = true;
+      } catch (Exception e) {
+        System.out.println("Invalid input, please try again");
+        s.nextLine();
+      }
+    }
 
     double price = 0.0;
     boolean isValidPrice = false;

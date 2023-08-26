@@ -52,7 +52,7 @@ public class HotelResource {
    * @param roomNumber
    * @return IRoom
    */
-  public IRoom getRoom(String roomNumber) {
+  public IRoom getRoom(int roomNumber) {
     return reservationService.getARoom(roomNumber);
   }
 

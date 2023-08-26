@@ -1,11 +1,11 @@
 package model;
 
 public class Room implements IRoom {
-  private String roomNumber;
+  private int roomNumber;
   private double price;
   private ERoomType roomType;
 
-  public Room(String roomNumber, double price, ERoomType roomType) {
+  public Room(int roomNumber, double price, ERoomType roomType) {
     this.roomNumber = roomNumber;
     this.price = price;
     this.roomType = roomType;
@@ -24,7 +24,7 @@ public class Room implements IRoom {
   }
 
   @Override
-  public String getRoomNumber() {
+  public int getRoomNumber() {
     return this.roomNumber;
   }
 

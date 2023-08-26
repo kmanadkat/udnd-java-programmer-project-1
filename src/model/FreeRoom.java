@@ -2,7 +2,7 @@ package model;
 
 public class FreeRoom extends Room {
 
-  public FreeRoom(String roomNumber, ERoomType roomType) {
+  public FreeRoom(int roomNumber, ERoomType roomType) {
     super(roomNumber, 0, roomType);
   }
 

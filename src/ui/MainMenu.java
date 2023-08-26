@@ -1,8 +1,11 @@
 package ui;
 
+import java.util.Collection;
 import java.util.Scanner;
 
 import api.HotelResource;
+import model.Customer;
+import model.Reservation;
 
 public class MainMenu {
   public static void showMenuOptions() {
@@ -25,7 +28,7 @@ public class MainMenu {
         break;
     
       case 2:
-        // See my reservations
+        showCustomerReservations(s);
         break;
     
       case 3:
@@ -89,6 +92,34 @@ public class MainMenu {
       } catch (Exception e) {
         System.out.println(e.getLocalizedMessage());
         System.out.println("Please try again");
+      }
+    }
+  }
+
+  private static void showCustomerReservations(Scanner s) {
+    HotelResource resource = HotelResource.getInstance();
+    boolean isValidEmail = false;
+    String emailId = "";
+    while(!isValidEmail){
+      try {
+        System.out.println("Enter your email id");
+        emailId = s.next();
+        Customer customer = resource.getCustomer(emailId);
+        if(customer == null){
+          return;
+        }
+        Collection<Reservation> reservations = resource.getCustomersReservations(emailId);
+        if(reservations.size() == 0) {
+          System.out.println("No reservations found");
+          return;
+        } 
+        for (Reservation reservation : reservations) {
+          System.out.println(reservation.toString());
+        }
+        isValidEmail = true;
+      } catch (Exception e) {
+        System.out.println("Error occured, please try again");
+        s.nextLine();  // Consume the leftover input
       }
     }
   }

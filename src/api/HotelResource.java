@@ -30,7 +30,7 @@ public class HotelResource {
   public Customer getCustomer(String email) {
     Collection<Customer> registeredCustomers = customerService.getAllCustomers();
     for (Customer customer : registeredCustomers) {
-      if(customer.getEmail() == email){
+      if(customer.getEmail().equals(email)){
         return customer;
       }
     }

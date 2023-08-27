@@ -3,8 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 import model.Customer;
 import model.IRoom;
@@ -15,12 +14,12 @@ public class ReservationService {
   private static ReservationService reference = new ReservationService();
 
   // Rooms Hash Map <roomNumber, Room>
-  Map<Integer, IRoom> rooms;
+  Collection<IRoom> rooms;
   Collection<Reservation> reservations;
 
   // Private Constructor
   private ReservationService() {
-    this.rooms = new HashMap<Integer, IRoom>();
+    this.rooms = new HashSet<IRoom>();
     this.reservations = new ArrayList<Reservation>();
   }
 
@@ -30,11 +29,14 @@ public class ReservationService {
    */
   public void addRoom(IRoom room) {
     // Validate if room id is unique
-    IRoom existingRoom = this.rooms.get(room.getRoomNumber());
-    if(existingRoom != null) {
-      throw new IllegalArgumentException("Room already exists with number " + room.getRoomNumber());
+    for(IRoom existingRoom: rooms) {
+      int existingRoomNumber = existingRoom.getRoomNumber();
+      int newRoomNumber = room.getRoomNumber();
+      if(existingRoomNumber == newRoomNumber) {
+        throw new IllegalArgumentException("Room already exists with number " + room.getRoomNumber());
+      }
     }
-    this.rooms.put(room.getRoomNumber(), room); 
+    rooms.add(room);
   }
 
   /**
@@ -43,7 +45,12 @@ public class ReservationService {
    * @return IRoom
    */
   public IRoom getARoom(int roomNumber){
-     return this.rooms.get(roomNumber);
+    for(IRoom existingRoom: rooms) {
+      if(existingRoom.getRoomNumber() == roomNumber) {
+        return existingRoom;
+      }
+   }
+   return null;
   }
 
   /**
@@ -129,7 +136,7 @@ public class ReservationService {
    */
   private Collection<IRoom> findAvailableRooms(Date checkInDate, Date checkOutDate) {
     Collection<IRoom> availableRooms = new ArrayList<IRoom>();
-    for(IRoom rm: this.rooms.values()) {
+    for(IRoom rm: this.rooms) {
       int roomNumber = rm.getRoomNumber();
       boolean roomAvailable = true;
       // Check All Existing Reservations
@@ -149,6 +156,6 @@ public class ReservationService {
   }
 
   public Collection<IRoom> getRooms() {
-    return this.rooms.values();
+    return this.rooms;
   }
 }

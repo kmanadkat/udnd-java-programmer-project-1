@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -87,6 +88,33 @@ public class ReservationService {
       return availableRooms;
     }
     return null;
+  }
+
+  /**
+   * Find recommended rooms
+   * @param checkInDate Original CheckIn Date
+   * @param checkOutDate Original Checkout Date
+   * @return
+   */
+  public Collection<IRoom> findRecommendedRooms(Date checkInDate, Date checkOutDate) {
+    Date incrementedCheckIn = getRecommendedDate(checkInDate);
+    Date incrementedCheckOut = getRecommendedDate(checkOutDate);
+    Collection<IRoom> availableRooms = this.findRooms(incrementedCheckIn, incrementedCheckOut);
+    return availableRooms;
+  }
+  
+  
+  /**
+   * Find recommended date from current date
+   * @param currentDate
+   * @return
+   */
+  public Date getRecommendedDate(Date currentDate) {
+    // Increment Dates by 7 for recommended Rooms
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(currentDate);
+    calendar.add(Calendar.DAY_OF_YEAR, 7);
+    return calendar.getTime();
   }
 
   /**

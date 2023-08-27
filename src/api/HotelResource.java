@@ -97,6 +97,25 @@ public class HotelResource {
   }
 
   /**
+   * Fetch List of Recommended Rooms
+   * @param checkIn
+   * @param checkOut
+   * @return
+   */
+  public Collection<IRoom> findRecommendedRooms(Date checkIn, Date checkOut) {
+    return reservationService.findRecommendedRooms(checkIn, checkOut);
+  }
+
+  /**
+   * Fetch Recommended Date
+   * @param date
+   * @return
+   */
+  public Date getRecommendedDate(Date date){
+    return reservationService.getRecommendedDate(date);
+  }
+
+  /**
    * Get CustomerService Singleton Instance
    * @return
    */

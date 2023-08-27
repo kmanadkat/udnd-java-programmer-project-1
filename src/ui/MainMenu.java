@@ -2,7 +2,6 @@ package ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Scanner;
@@ -92,17 +91,16 @@ public class MainMenu {
     // Rooms Not Available, Show Recommended rooms - increment by 7 days
     else {
       System.out.println("No rooms available between checkin & checkout dates");
-      // Room not available -> Increment Dates by 7 (offset + 1) & Show Recommended Rooms
-      Date incrementedCheckIn = incrementDate(checkInDate, 7 + 1);
-      Date incrementedCheckOut = incrementDate(checkOutDate, 7 + 1);
-      rooms = resourse.findARoom(incrementedCheckIn, incrementedCheckOut);
+      rooms = resourse.findRecommendedRooms(checkInDate, checkOutDate);
       if(rooms != null && rooms.size() > 0){
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
-        String checkinString = sdf.format(incrementedCheckIn);
-        String checkoutString = sdf.format(incrementedCheckOut);
+        Date newCheckinDate = resourse.getRecommendedDate(checkInDate);
+        Date newCheckoutDate = resourse.getRecommendedDate(checkOutDate);
+        String checkinString = sdf.format(newCheckinDate);
+        String checkoutString = sdf.format(newCheckoutDate);
 
         System.out.println("Recommended Rooms available between " + checkinString + " & " + checkoutString + " :");
-        bookAvailableRoom(s, rooms, incrementedCheckIn, incrementedCheckOut);
+        bookAvailableRoom(s, rooms, newCheckinDate, newCheckoutDate);
       }
     }
   }
@@ -171,13 +169,6 @@ public class MainMenu {
         s.nextLine();
       }
     }
-  }
-
-  private static Date incrementDate(Date currentDate, int days) {
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(currentDate);
-    calendar.add(Calendar.DAY_OF_YEAR, 7);
-    return calendar.getTime();
   }
 
   private static boolean getYesNoInput(Scanner s, String message) {

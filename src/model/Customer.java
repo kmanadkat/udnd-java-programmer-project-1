@@ -10,7 +10,7 @@ public class Customer {
 
   public Customer(String firstName, String lastName, String email) { 
     // Validate Email
-    String emailRegex = "^(.+)@(.+).com$";
+    String emailRegex = "^[a-zA-Z]+@[a-zA-Z]+(\\.com)$";
     Pattern pattern = Pattern.compile(emailRegex);
     if(!pattern.matcher(email).matches()) {
       throw new IllegalArgumentException("IllegalArgumentException: Invalid Email Id");

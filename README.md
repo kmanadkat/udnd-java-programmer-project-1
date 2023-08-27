@@ -31,3 +31,10 @@ The app is separated into the following layers:
 
 ![](./media/hotelreservation01.png)
 Image Source: Udacity
+
+### Project Requirement & Setup
+This project was built on java v20.0.2 You need to have JDK installed to run this. Also IDE like IntelliJ or Vscode is required.
+> For Vscode, [Java Language Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) extensions are required.
+1. Clone the repository
+2. Open project in IntelliJ or Vscode
+3. Go to src/HotelApplication.java file & run the `main()` function

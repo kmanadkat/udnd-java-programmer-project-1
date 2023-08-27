@@ -92,9 +92,9 @@ public class MainMenu {
     // Rooms Not Available, Show Recommended rooms - increment by 7 days
     else {
       System.out.println("No rooms available between checkin & checkout dates");
-      // Room not available -> Increment Dates by 7 & Show Recommended Rooms
-      Date incrementedCheckIn = incrementDate(checkInDate, 7);
-      Date incrementedCheckOut = incrementDate(checkOutDate, 7);
+      // Room not available -> Increment Dates by 7 (offset + 1) & Show Recommended Rooms
+      Date incrementedCheckIn = incrementDate(checkInDate, 7 + 1);
+      Date incrementedCheckOut = incrementDate(checkOutDate, 7 + 1);
       rooms = resourse.findARoom(incrementedCheckIn, incrementedCheckOut);
       if(rooms != null && rooms.size() > 0){
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
@@ -243,7 +243,7 @@ public class MainMenu {
           return;
         } 
         for (Reservation reservation : reservations) {
-          System.out.println(reservation.toString());
+          System.out.println(reservation.toString() + "\n");
         }
         isValidEmail = true;
       } catch (Exception e) {

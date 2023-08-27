@@ -142,7 +142,16 @@ public class ReservationService {
       // Check All Existing Reservations
       for(Reservation rs: reservations) {
         if(rs.getRoom().getRoomNumber() == roomNumber) {
-          if(checkInDate.before(rs.getCheckOutDate()) && checkOutDate.after(rs.getCheckInDate())){
+          //1. required Checkout date is before reserved room checkin date
+          if(checkOutDate.before(rs.getCheckInDate())) {
+            roomAvailable = true;
+          }
+          //2. Checkin date after checkout date
+          else if(checkInDate.after(rs.getCheckOutDate())){
+            roomAvailable = true;
+          }
+          // Found reservation not satisfying 1. & 2. conditions
+          else {
             roomAvailable = false;
             break;
           }
